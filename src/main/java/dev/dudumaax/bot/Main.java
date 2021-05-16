@@ -36,7 +36,7 @@ public class Main extends JavaPlugin implements Listener {
 		
 		System.out.println("Bot Iniciado");
 		JDABuilder builder = JDABuilder.createDefault(getDiscordToken());
-		builder.setActivity(Activity.watching("funcionou."));
+		builder.setActivity(Activity.watching("Dudumaax coding."));
 		builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
 		JDA bot = null;
 		try {
