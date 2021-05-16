@@ -21,8 +21,8 @@ As soon as a staff member joins the server, their time online is going to be log
 
 <div align="center">
 <img
-    height="550"
-    width="250"
+    height="250"
+    width="550"
     alt="entrada-e-saida"
     src="https://image.prntscr.com/image/jqHn4a_jTXuCNPEVIKFBYQ.png"
   />
