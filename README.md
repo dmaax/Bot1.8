@@ -30,3 +30,12 @@ As soon as a staff member joins the server, their time online is going to be log
  
 When a punishment to a player occurs, an embed will be sent in a predefined channel
  on Discord, with all the information.
+ 
+<div align="center">
+<img
+    height="207"
+    width="374"
+    alt="entrada-e-saida"
+    src="https://image.prntscr.com/image/aHlHqHFhS0aRWDPsBzNjvg.png"
+  />
+<div>
