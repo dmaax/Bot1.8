@@ -35,7 +35,20 @@ When a punishment to a player occurs, an embed will be sent in a predefined chan
 <img
     height="207"
     width="374"
-    alt="entrada-e-saida"
+    alt="punicao"
     src="https://image.prntscr.com/image/aHlHqHFhS0aRWDPsBzNjvg.png"
+  />
+<div>
+
+Another feature built-in is the .status command wich pings your defined server, in
+ order to retrieve information such as the server icon, the amount of players online 
+ and the latency.
+ 
+<div align="center">
+<img
+    height="131"
+    width="278"
+    alt="status"
+    src="https://image.prntscr.com/image/39tLux0iSTud4p9KXj2KWw.png"
   />
 <div>
