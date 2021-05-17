@@ -71,6 +71,7 @@ public class UtilsMySQL {
 		}
 	}
 	
+	//This is the Create function from a CRUD.
 	public void punish(String author, String player, String motive) {
 		try {
 			PreparedStatement statement = this.getConnection()
@@ -78,6 +79,17 @@ public class UtilsMySQL {
 			statement.setString(1, author);
 			statement.setString(2, player);
 			statement.setString(3, motive);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//This is the Delete function from a CRUD.
+	public void removeAllData() {
+		try {
+			PreparedStatement statement = this.getConnection()
+					.prepareStatement("DELETE * FROM punishments");
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
