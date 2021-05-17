@@ -43,7 +43,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 		this.bot = bot;
 		this.data = new SQLGetter(Main.plugin);
 		channelLoginAndLogout = bot.getTextChannelById(772595266158723123L);
-		channelPunishments = bot.getTextChannelById(772594907772092466L);
+		channelPunishments = bot.getTextChannelById(Long.parseLong(Files.config.getString("channel-punishments:")));
 	}
 
 	@EventHandler
