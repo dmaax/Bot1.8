@@ -61,8 +61,6 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			if (Main.plugin.SQL.isConnected()) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.LIGHT_PURPLE + "Backend funcionando!");
 			}
-			// channelLoginAndLogout.sendMessage("**" + playerName + " Entrou: " +
-			// BrasilHour() + "**").queue();
 		}
 
 	}
@@ -247,6 +245,26 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			}
 			if (Main.plugin.SQL.isConnected()) {
 				Main.plugin.data.removeAllData();
+				e.getPlayer().sendMessage("§aVocê apagou as punições com sucesso.");
+				return;
+			}
+		}
+		
+		else if (e.getMessage().toLowerCase().startsWith("/punishment")) {
+			String[] args = e.getMessage().split(" ");
+			if (!e.getPlayer().hasPermission("bot.punishment")) {
+				e.getPlayer().sendMessage("§cSem permissão.");
+				return;
+			}
+			
+			if(args.length != 2) {
+				e.getPlayer().sendMessage("§cUso correto: /punishment id");
+				return;
+			}
+
+			if (Main.plugin.SQL.isConnected()) {
+				e.getPlayer().sendMessage(Main.plugin.data.getPunishment(Integer.parseInt(args[1])));
+				return;
 			}
 		}
 

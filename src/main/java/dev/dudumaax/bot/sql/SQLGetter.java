@@ -49,6 +49,7 @@ public class SQLGetter {
 		}
 	}
 
+	// This is the Read function from CRUD.
 	public String getPunishment(Integer id) {
 		try {
 			if (plugin.SQL.isConnected()) {
@@ -70,6 +71,7 @@ public class SQLGetter {
 		return "Nenhum";
 	}
 
+	// This is the Create function from CRUD.
 	public void punish(String author, String player, String motive) {
 		try {
 			String query = "INSERT INTO punishments(author, player, motive)" + " values (?, ?, ?)";
@@ -83,17 +85,16 @@ public class SQLGetter {
 			e.printStackTrace();
 		}
 	}
-	
-	//This is the Delete function from a CRUD.
-		public void removeAllData() {
-			try {
-				PreparedStatement statement = plugin.SQL.getConnection()
-						.prepareStatement("DELETE * FROM punishments");
-				statement.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+
+	// This is the Delete function from a CRUD.
+	public void removeAllData() {
+		try {
+			PreparedStatement statement = plugin.SQL.getConnection().prepareStatement("DELETE FROM punishments");
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+	}
 
 	public int totalPunishments() throws Exception {
 		Connection connect = plugin.SQL.getConnection();
