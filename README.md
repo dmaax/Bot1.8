@@ -33,10 +33,10 @@ When a punishment to a player occurs, an embed will be sent in a predefined chan
  
 <div align="center">
 <img
-    height="207"
-    width="374"
+    height="181"
+    width="314"
     alt="punicao"
-    src="https://image.prntscr.com/image/aHlHqHFhS0aRWDPsBzNjvg.png"
+    src="https://image.prntscr.com/image/xcy4UbEQRgqXiD9zu8zWDA.png"
   />
 <div>
 
@@ -46,9 +46,9 @@ Another feature built-in is the .status command wich pings your defined server, 
  
 <div align="center">
 <img
-    height="131"
-    width="278"
+    height="108"
+    width="220"
     alt="status"
-    src="https://image.prntscr.com/image/39tLux0iSTud4p9KXj2KWw.png"
+    src="https://image.prntscr.com/image/whsMQPddT-SLr2wuVykiPg.png"
   />
 <div>
