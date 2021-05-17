@@ -33,10 +33,10 @@ When a punishment to a player occurs, an embed will be sent in a predefined chan
  
 <div align="center">
 <img
-    height="207"
-    width="374"
+    height="181"
+    width="315"
     alt="punicao"
-    src="https://image.prntscr.com/image/aHlHqHFhS0aRWDPsBzNjvg.png"
+    src="https://image.prntscr.com/image/xcy4UbEQRgqXiD9zu8zWDA.png"
   />
 <div>
 
