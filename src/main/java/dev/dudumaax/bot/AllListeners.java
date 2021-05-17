@@ -88,7 +88,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				eb.setColor(new Color(195, 114, 218));
 			}
 			eb.setTitle("Equipe Log");
-			eb.setThumbnail("https://minotar.net/avatar/" + playerName + ".png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + playerName + ".png");
 			eb.addField("Nick", playerName, true);
 			eb.addField("Entrada", entrada, true);
 			eb.addField("Saída", saida, true);
@@ -99,7 +99,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			} catch (ParseException ex) {
 				ex.printStackTrace();
 			}
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelLoginAndLogout.sendMessage(eb.build()).queue();
 			
 			if(!Files.HorarioConfig.contains(BrasilDay())) {
@@ -163,9 +163,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 					eb.setImage(c.returnImage(arg));
 				}
 			}
-			eb.setThumbnail("https://minotar.net/avatar/" + punidoName + ".png");
-			// https://prnt.sc/vittp8
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + punidoName + ".png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
 		}
 
@@ -185,9 +184,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			eb.setTitle("F " + playerName + " DEU EBANIP");
 			eb.addField("Quem fez: ", playerName, true);
 			eb.setColor(Color.RED);
-			eb.setThumbnail("https://minotar.net/avatar/" + punidoName + ".png");
-			// eb.setImage(args[args.length - 1]);
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + punidoName + ".png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
 			channelPunishments.sendMessage("@everyone").queue();
 		}
@@ -211,9 +209,9 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			eb.addField("Punido", punidoName, true);
 			eb.addField("Motivo", motivo, true);
 			eb.setColor(Color.RED);
-			eb.setThumbnail("https://minotar.net/avatar/" + punidoName + ".png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + punidoName + ".png");
 			// eb.setImage(args[args.length - 1]);
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
 		}
 
@@ -236,9 +234,9 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			eb.addField("Punido", punidoName, true);
 			eb.addField("Motivo", motivo, true);
 			eb.setColor(Color.ORANGE);
-			eb.setThumbnail("https://minotar.net/avatar/" + punidoName + ".png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + punidoName + ".png");
 			// eb.setImage(args[args.length - 1]);
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
 		}
 
