@@ -19,6 +19,7 @@ As soon as a staff member joins the server, their time online is going to be log
  into a file, when they disconnect a simple embed will be sent in a defined Discord
  channel, with the amount of time they where online.
 
+<div align="center">
 <img
     height="182"
     width="456"
