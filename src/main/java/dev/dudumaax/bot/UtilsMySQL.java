@@ -85,16 +85,6 @@ public class UtilsMySQL {
 		}
 	}
 	
-	//This is the Delete function from a CRUD.
-	public void removeAllData() {
-		try {
-			PreparedStatement statement = this.getConnection()
-					.prepareStatement("DELETE * FROM punishments");
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public Connection getConnection() {
 		return this.connection;

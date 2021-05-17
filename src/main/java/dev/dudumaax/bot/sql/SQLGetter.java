@@ -83,6 +83,17 @@ public class SQLGetter {
 			e.printStackTrace();
 		}
 	}
+	
+	//This is the Delete function from a CRUD.
+		public void removeAllData() {
+			try {
+				PreparedStatement statement = plugin.SQL.getConnection()
+						.prepareStatement("DELETE * FROM punishments");
+				statement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	public int totalPunishments() throws Exception {
 		Connection connect = plugin.SQL.getConnection();

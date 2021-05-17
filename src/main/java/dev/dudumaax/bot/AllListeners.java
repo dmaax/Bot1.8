@@ -61,7 +61,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			if (Main.plugin.SQL.isConnected()) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.LIGHT_PURPLE + "Backend funcionando!");
 			}
-			//channelLoginAndLogout.sendMessage("**" + playerName + " Entrou: " + BrasilHour() + "**").queue();
+			// channelLoginAndLogout.sendMessage("**" + playerName + " Entrou: " +
+			// BrasilHour() + "**").queue();
 		}
 
 	}
@@ -101,32 +102,33 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			}
 			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelLoginAndLogout.sendMessage(eb.build()).queue();
-			
-			if(!Files.HorarioConfig.contains(BrasilDay())) {
+
+			if (!Files.HorarioConfig.contains(BrasilDay())) {
 				Files.HorarioConfig.createSection(BrasilDay());
 				try {
 					Files.HorarioConfig.save(Files.HorarioFile);
-				} catch(Exception e2) {
+				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
 			}
-			
-			if(!Files.HorarioConfig.getConfigurationSection(BrasilDay()).contains(e.getPlayer().getName())) {
-				Files.HorarioConfig.set(BrasilDay() + "." + e.getPlayer().getName(), dateDifferenceRaw(entrada, saida, "HH:mm:ss"));
+
+			if (!Files.HorarioConfig.getConfigurationSection(BrasilDay()).contains(e.getPlayer().getName())) {
+				Files.HorarioConfig.set(BrasilDay() + "." + e.getPlayer().getName(),
+						dateDifferenceRaw(entrada, saida, "HH:mm:ss"));
 				try {
 					Files.HorarioConfig.save(Files.HorarioFile);
-				} catch(Exception e2) {
+				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
 			} else {
-				//Ja tem um horario desse staff. temos que somar.
-				//String tempo = Files.HorarioConfig.getString(BrasilDay() + "." + e.getPlayer().getName());
-				
+				// Ja tem um horario desse staff. temos que somar.
+				// String tempo = Files.HorarioConfig.getString(BrasilDay() + "." +
+				// e.getPlayer().getName());
+
 			}
-			
+
 		}
 	}
-	 
 
 	@EventHandler
 	public void onCommand(PlayerCommandPreprocessEvent e) {
@@ -238,6 +240,14 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			// eb.setImage(args[args.length - 1]);
 			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
+		} else if (e.getMessage().toLowerCase().startsWith("/cleardb")) {
+			if (!e.getPlayer().hasPermission("bot.cleardb")) {
+				e.getPlayer().sendMessage("§cSem permissão.");
+				return;
+			}
+			if (Main.plugin.SQL.isConnected()) {
+				Main.plugin.data.removeAllData();
+			}
 		}
 
 	}
@@ -280,7 +290,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			String[] latencia = latency(args[1], Integer.parseInt(args[2])).split(" ");
 			int ms = Integer.parseInt(latencia[0]);
 			if (ms > 800) {
-				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();;
+				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();
+				;
 				return;
 			} else {
 
@@ -291,18 +302,17 @@ public class AllListeners extends ListenerAdapter implements Listener {
 
 			}
 
-		}
-		else if(e.getMessage().getContentRaw().startsWith(".status")) {
+		} else if (e.getMessage().getContentRaw().startsWith(".status")) {
 			String[] args = e.getMessage().getContentRaw().split(" ");
 			if (args.length != 1) {
 				e.getChannel().sendMessage("**Uso correto:** .status").queue();
 				return;
 			}
-			
+
 			EmbedBuilder eb = new EmbedBuilder();
 			eb.setTitle("Status");
 			eb.setColor(Color.GREEN);
-			
+
 			ServerListPing17 slp = new ServerListPing17();
 			InetSocketAddress server = new InetSocketAddress("playnetwork.com.br", 25565);
 			slp.setAddress(server);
@@ -320,7 +330,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			String[] latencia = latency("playnetwork.com.br", 25565).split(" ");
 			int ms = Integer.parseInt(latencia[0]);
 			if (ms > 800) {
-				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();;
+				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();
+				;
 				return;
 			} else {
 
@@ -330,7 +341,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				return;
 
 			}
-			
+
 		}
 	}
 
@@ -375,7 +386,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				+ " Segundo(s)";
 		return tempo;
 	}
-	
+
 	private String dateDifferenceRaw(String date1, String date2, String pattern) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		Date d1 = sdf.parse(date1);
@@ -393,11 +404,10 @@ public class AllListeners extends ListenerAdapter implements Listener {
 		long dateDiffInSeconds = TimeUnit.SECONDS.convert(diffInMillis - (dateDiffInDays * 24 * 60 * 60 * 1000)
 				- (dateDiffInHours * 60 * 60 * 1000) - (dateDiffInMinutes * 60 * 1000), TimeUnit.MILLISECONDS);
 
-		final String tempo = dateDiffInHours + "h" + dateDiffInMinutes + "m" + dateDiffInSeconds
-				+ "s";
+		final String tempo = dateDiffInHours + "h" + dateDiffInMinutes + "m" + dateDiffInSeconds + "s";
 		return tempo;
 	}
-	
+
 	private String dateSoma(String date1, String date2) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 		Date d1 = sdf.parse(date1);
@@ -415,8 +425,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 		long dateDiffInSeconds = TimeUnit.SECONDS.convert(diffInMillis + (dateDiffInDays * 24 * 60 * 60 * 1000)
 				- (dateDiffInHours * 60 * 60 * 1000) - (dateDiffInMinutes * 60 * 1000), TimeUnit.MILLISECONDS);
 
-		final String tempo = dateDiffInHours + "h" + dateDiffInMinutes + "m" + dateDiffInSeconds
-				+ "s";
+		final String tempo = dateDiffInHours + "h" + dateDiffInMinutes + "m" + dateDiffInSeconds + "s";
 		return tempo;
 	}
 
@@ -426,7 +435,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 		SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss");
 		return date.format(calendar.getTime());
 	}
-	
+
 	public static String BrasilDay() {
 		TimeZone tz = TimeZone.getTimeZone("America/Brasil");
 		Calendar calendar = GregorianCalendar.getInstance(tz);
