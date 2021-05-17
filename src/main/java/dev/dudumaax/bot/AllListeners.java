@@ -42,8 +42,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 	public AllListeners(JDA bot) {
 		this.bot = bot;
 		this.data = new SQLGetter(Main.plugin);
-		channelLoginAndLogout = bot.getTextChannelById(772595266158723123L);
-		channelPunishments = bot.getTextChannelById(Long.parseLong(Files.config.getString("channel-punishments:")));
+		channelLoginAndLogout = bot.getTextChannelById(Long.parseLong(Files.config.getString("channel-staff-log")));
+		channelPunishments = bot.getTextChannelById(Long.parseLong(Files.config.getString("channel-punishments")));
 	}
 
 	@EventHandler
