@@ -186,7 +186,6 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			eb.addField("Quem fez: ", playerName, true);
 			eb.setColor(Color.RED);
 			eb.setThumbnail("https://minotar.net/avatar/" + punidoName + ".png");
-			// eb.setImage(args[args.length - 1]);
 			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://minotar.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
 			channelPunishments.sendMessage("@everyone").queue();
