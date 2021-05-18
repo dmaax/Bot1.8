@@ -6,7 +6,7 @@
   <version>1.0</version>
   
   <name>BotDiscord</name>
-  <description>This is my first plugin</description>
+  <description>Simple spigot plugin integrated with a Discord Bot</description>
   
   
    <properties>
