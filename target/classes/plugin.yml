@@ -1,0 +1,7 @@
+name: BotDiscord
+version: 0.1
+author: Dudumaax
+description: Plugin de bot
+main: dev.dudumaax.bot.Main
+commands:
+  
