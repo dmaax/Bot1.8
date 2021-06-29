@@ -2,9 +2,14 @@ package dev.dudumaax.bot;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,9 +26,15 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+
 import dev.dudumaax.bot.ServerListPing17.StatusResponse;
-import dev.dudumaax.bot.sql.SQLGetter;
 import dev.dudumaax.bot.api.MCServerStatusAPI;
+import dev.dudumaax.bot.sql.SQLGetter;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -39,7 +50,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 	Crawler c = new Crawler();
 	UtilsMySQL utils = new UtilsMySQL();
 	public SQLGetter data;
-	MCServerStatusAPI mc;
+	MCServerStatusAPI mc = new MCServerStatusAPI();
 
 	public AllListeners(JDA bot) {
 		this.bot = bot;
@@ -63,7 +74,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			if (Main.plugin.SQL.isConnected()) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.LIGHT_PURPLE + "Backend funcionando!");
 			}
-			//channelLoginAndLogout.sendMessage("**" + playerName + " Entrou: " + BrasilHour() + "**").queue();
+			// channelLoginAndLogout.sendMessage("**" + playerName + " Entrou: " +
+			// BrasilHour() + "**").queue();
 		}
 
 	}
@@ -103,35 +115,36 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			}
 			eb.setFooter("Developed by Dudumaax - All Rights Reserved Â©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelLoginAndLogout.sendMessage(eb.build()).queue();
-			
-			if(!Files.HorarioConfig.contains(BrasilDay())) {
+
+			if (!Files.HorarioConfig.contains(BrasilDay())) {
 				Files.HorarioConfig.createSection(BrasilDay());
 				try {
 					Files.HorarioConfig.save(Files.HorarioFile);
-				} catch(Exception e2) {
+				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
 			}
-			
-			if(!Files.HorarioConfig.getConfigurationSection(BrasilDay()).contains(e.getPlayer().getName())) {
-				Files.HorarioConfig.set(BrasilDay() + "." + e.getPlayer().getName(), dateDifferenceRaw(entrada, saida, "HH:mm:ss"));
+
+			if (!Files.HorarioConfig.getConfigurationSection(BrasilDay()).contains(e.getPlayer().getName())) {
+				Files.HorarioConfig.set(BrasilDay() + "." + e.getPlayer().getName(),
+						dateDifferenceRaw(entrada, saida, "HH:mm:ss"));
 				try {
 					Files.HorarioConfig.save(Files.HorarioFile);
-				} catch(Exception e2) {
+				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
 			} else {
-				//Ja tem um horario desse staff. temos que somar.
-				//String tempo = Files.HorarioConfig.getString(BrasilDay() + "." + e.getPlayer().getName());
-				
+				// Ja tem um horario desse staff. temos que somar.
+				// String tempo = Files.HorarioConfig.getString(BrasilDay() + "." +
+				// e.getPlayer().getName());
+
 			}
-			
+
 		}
 	}
-	 
 
 	@EventHandler
-	public void onCommand(PlayerCommandPreprocessEvent e) {
+	public void onCommand(PlayerCommandPreprocessEvent e) throws JsonIOException, JsonSyntaxException, IOException {
 		String playerName = e.getPlayer().getName();
 		if (e.getMessage().toLowerCase().startsWith("/kick")) {
 			if (!e.getPlayer().hasPermission("essentials.kick"))
@@ -241,6 +254,49 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			// eb.setImage(args[args.length - 1]);
 			eb.setFooter("Developed by Dudumaax - All Rights Reserved Â©", "https://minotar.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
+		} else if (e.getMessage().startsWith("/svinfo")) {
+
+			String[] message = e.getMessage().split("\\ ");
+
+			Bukkit.getServer().broadcastMessage("Seu servidor: " + message[1]);
+
+			String sURL = "https://api.mcsrvstat.us/2/" + message[1];
+			// String proxy = "";
+
+			URL url = null;
+			try {
+				url = new URL(sURL);
+			} catch (MalformedURLException e2) {
+				Bukkit.getServer().broadcastMessage("§cErro na url");
+				e2.printStackTrace();
+			}
+			URLConnection request = null;
+			try {
+				request = url.openConnection();
+			} catch (IOException e2) {
+				Bukkit.getServer().broadcastMessage("§cErro IO Exception");
+				e2.printStackTrace();
+			}
+			try {
+				request.connect();
+			} catch (IOException e1) {
+				Bukkit.getServer().broadcastMessage("§cErro na conexao.");
+				e1.printStackTrace();
+			}
+
+			// Convert to a JSON object to print data
+			JsonParser jp = new JsonParser(); // from gson
+			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); // Convert the input
+
+			JsonObject rootobj = root.getAsJsonObject();
+			String ip = rootobj.get("ip").getAsString();
+			String port = rootobj.get("port").getAsString();
+			String version = rootobj.get("version").getAsString();
+
+			Bukkit.getServer().broadcastMessage("§aIP: " + ip);
+			Bukkit.getServer().broadcastMessage("§aPort: " + port);
+			Bukkit.getServer().broadcastMessage("§aVersion: " + version);
+
 		}
 
 	}
@@ -248,64 +304,29 @@ public class AllListeners extends ListenerAdapter implements Listener {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
 		if (e.getMessage().getContentRaw().startsWith(".info")) {
 
-			String[] args = e.getMessage().getContentRaw().split(" ");
+			String[] args = e.getMessage().getContentRaw().split("\\ ");
 			if (args.length != 2) {
 				e.getChannel().sendMessage("**Uso correto:** .info <servidor>").queue();
 				return;
 			}
 
-			EmbedBuilder eb = new EmbedBuilder();
-			eb.setTitle(args[1] + " status:");
-			
-			String[] apiConsult = mc.getServerInfo(args[1]);
-			
-			eb.setColor(Color.GREEN);
-			eb.addField("Resposta","Aguradando",true);
-			
-			e.getChannel().sendMessage(eb.build()).queue();
-			
-			Bukkit.getServer().broadcastMessage("§a" + apiConsult[0]);
-			
-//			ServerListPing17 slp = new ServerListPing17();
-//			InetSocketAddress server = new InetSocketAddress(args[1], Integer.parseInt(args[2]));
-//			slp.setAddress(server);
-//			slp.setTimeout(7000);
-//
-//			try {
-//				StatusResponse response = slp.fetchData();
-//				eb.addField("Online", "" + response.getPlayers().getOnline() + "/" + response.getPlayers().getMax(),
-//						true);
-//				eb.setThumbnail("https://mc-api.net/v3/server/favicon/" + args[1]);
-//			} catch (IOException e1) {
-//				e1.printStackTrace();
-//			}
-//
-//			String[] latencia = latency(args[1], Integer.parseInt(args[2])).split(" ");
-//			int ms = Integer.parseInt(latencia[0]);
-//			if (ms > 800) {
-//				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();;
-//				return;
-//			} else {
-//
-//				eb.addField("Ping", "" + ms, true);
-//
-//				e.getChannel().sendMessage(eb.build()).queue();
-//				return;
-//
-//			}
+			try {
+				mc.getServerInfo(e.getChannel(), args[1]);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 
-		}
-		else if(e.getMessage().getContentRaw().startsWith(".status")) {
+		} else if (e.getMessage().getContentRaw().startsWith(".status")) {
 			String[] args = e.getMessage().getContentRaw().split(" ");
 			if (args.length != 1) {
 				e.getChannel().sendMessage("**Uso correto:** .status").queue();
 				return;
 			}
-			
+
 			EmbedBuilder eb = new EmbedBuilder();
 			eb.setTitle("Status");
 			eb.setColor(Color.GREEN);
-			
+
 			ServerListPing17 slp = new ServerListPing17();
 			InetSocketAddress server = new InetSocketAddress("playnetwork.com.br", 25565);
 			slp.setAddress(server);
@@ -323,7 +344,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			String[] latencia = latency("playnetwork.com.br", 25565).split(" ");
 			int ms = Integer.parseInt(latencia[0]);
 			if (ms > 800) {
-				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();;
+				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();
+				;
 				return;
 			} else {
 
@@ -333,7 +355,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				return;
 
 			}
-			
+
 		}
 	}
 
@@ -378,7 +400,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				+ " Segundo(s)";
 		return tempo;
 	}
-	
+
 	private String dateDifferenceRaw(String date1, String date2, String pattern) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		Date d1 = sdf.parse(date1);
@@ -396,11 +418,10 @@ public class AllListeners extends ListenerAdapter implements Listener {
 		long dateDiffInSeconds = TimeUnit.SECONDS.convert(diffInMillis - (dateDiffInDays * 24 * 60 * 60 * 1000)
 				- (dateDiffInHours * 60 * 60 * 1000) - (dateDiffInMinutes * 60 * 1000), TimeUnit.MILLISECONDS);
 
-		final String tempo = dateDiffInHours + "h" + dateDiffInMinutes + "m" + dateDiffInSeconds
-				+ "s";
+		final String tempo = dateDiffInHours + "h" + dateDiffInMinutes + "m" + dateDiffInSeconds + "s";
 		return tempo;
 	}
-	
+
 	private String dateSoma(String date1, String date2) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 		Date d1 = sdf.parse(date1);
@@ -418,8 +439,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 		long dateDiffInSeconds = TimeUnit.SECONDS.convert(diffInMillis + (dateDiffInDays * 24 * 60 * 60 * 1000)
 				- (dateDiffInHours * 60 * 60 * 1000) - (dateDiffInMinutes * 60 * 1000), TimeUnit.MILLISECONDS);
 
-		final String tempo = dateDiffInHours + "h" + dateDiffInMinutes + "m" + dateDiffInSeconds
-				+ "s";
+		final String tempo = dateDiffInHours + "h" + dateDiffInMinutes + "m" + dateDiffInSeconds + "s";
 		return tempo;
 	}
 
@@ -429,7 +449,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 		SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss");
 		return date.format(calendar.getTime());
 	}
-	
+
 	public static String BrasilDay() {
 		TimeZone tz = TimeZone.getTimeZone("America/Brasil");
 		Calendar calendar = GregorianCalendar.getInstance(tz);

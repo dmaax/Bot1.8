@@ -10,5 +10,6 @@ dev\dudumaax\bot\sql\SQLGetter.class
 dev\dudumaax\bot\UtilsMySQL.class
 dev\dudumaax\bot\GetterAndSetterMySQL.class
 dev\dudumaax\bot\ServerListPing17$StatusResponse.class
+dev\dudumaax\bot\api\MCServerStatusAPI.class
 dev\dudumaax\bot\ServerListPing17$Description.class
 dev\dudumaax\bot\ServerListPing17$Player.class
