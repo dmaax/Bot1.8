@@ -264,6 +264,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			
 			e.getChannel().sendMessage(eb.build()).queue();
 			
+			Bukkit.getServer().broadcastMessage("§a" + apiConsult[0]);
+			
 //			ServerListPing17 slp = new ServerListPing17();
 //			InetSocketAddress server = new InetSocketAddress(args[1], Integer.parseInt(args[2]));
 //			slp.setAddress(server);
