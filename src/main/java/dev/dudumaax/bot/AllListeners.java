@@ -23,6 +23,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import dev.dudumaax.bot.ServerListPing17.StatusResponse;
 import dev.dudumaax.bot.sql.SQLGetter;
+import dev.dudumaax.bot.api.MCServerStatusAPI;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -38,6 +39,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 	Crawler c = new Crawler();
 	UtilsMySQL utils = new UtilsMySQL();
 	public SQLGetter data;
+	MCServerStatusAPI mc;
 
 	public AllListeners(JDA bot) {
 		this.bot = bot;
@@ -247,50 +249,48 @@ public class AllListeners extends ListenerAdapter implements Listener {
 		if (e.getMessage().getContentRaw().startsWith(".info")) {
 
 			String[] args = e.getMessage().getContentRaw().split(" ");
-			if (args.length != 3) {
-				e.getChannel().sendMessage("**Uso correto:** .info <servidor> <porta>").queue();
+			if (args.length != 2) {
+				e.getChannel().sendMessage("**Uso correto:** .info <servidor>").queue();
 				return;
 			}
 
 			EmbedBuilder eb = new EmbedBuilder();
 			eb.setTitle(args[1] + " status:");
-
-			try {
-				Integer.parseInt(args[2]);
-			} catch (NumberFormatException ex) {
-				eb.addField("Erro", "Porta inválida.", false);
-				eb.setColor(Color.RED);
-				e.getChannel().sendMessage(eb.build()).queue();
-			}
-
+			
+			String[] apiConsult = mc.getServerInfo(args[1]);
+			
 			eb.setColor(Color.GREEN);
-			ServerListPing17 slp = new ServerListPing17();
-			InetSocketAddress server = new InetSocketAddress(args[1], Integer.parseInt(args[2]));
-			slp.setAddress(server);
-			slp.setTimeout(7000);
-
-			try {
-				StatusResponse response = slp.fetchData();
-				eb.addField("Online", "" + response.getPlayers().getOnline() + "/" + response.getPlayers().getMax(),
-						true);
-				eb.setThumbnail("https://mc-api.net/v3/server/favicon/" + args[1]);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-
-			String[] latencia = latency(args[1], Integer.parseInt(args[2])).split(" ");
-			int ms = Integer.parseInt(latencia[0]);
-			if (ms > 800) {
-				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();;
-				return;
-			} else {
-
-				eb.addField("Ping", "" + ms, true);
-
-				e.getChannel().sendMessage(eb.build()).queue();
-				return;
-
-			}
+			eb.addField("Resposta","Aguradando",true);
+			
+			e.getChannel().sendMessage(eb.build()).queue();
+			
+//			ServerListPing17 slp = new ServerListPing17();
+//			InetSocketAddress server = new InetSocketAddress(args[1], Integer.parseInt(args[2]));
+//			slp.setAddress(server);
+//			slp.setTimeout(7000);
+//
+//			try {
+//				StatusResponse response = slp.fetchData();
+//				eb.addField("Online", "" + response.getPlayers().getOnline() + "/" + response.getPlayers().getMax(),
+//						true);
+//				eb.setThumbnail("https://mc-api.net/v3/server/favicon/" + args[1]);
+//			} catch (IOException e1) {
+//				e1.printStackTrace();
+//			}
+//
+//			String[] latencia = latency(args[1], Integer.parseInt(args[2])).split(" ");
+//			int ms = Integer.parseInt(latencia[0]);
+//			if (ms > 800) {
+//				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();;
+//				return;
+//			} else {
+//
+//				eb.addField("Ping", "" + ms, true);
+//
+//				e.getChannel().sendMessage(eb.build()).queue();
+//				return;
+//
+//			}
 
 		}
 		else if(e.getMessage().getContentRaw().startsWith(".status")) {
