@@ -88,7 +88,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				eb.setColor(new Color(195, 114, 218));
 			}
 			eb.setTitle("Equipe Log");
-			eb.setThumbnail("https://minotar.net/avatar/" + playerName + ".png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + playerName + ".png");
 			eb.addField("Nick", playerName, true);
 			eb.addField("Entrada", entrada, true);
 			eb.addField("Saída", saida, true);
@@ -99,7 +99,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			} catch (ParseException ex) {
 				ex.printStackTrace();
 			}
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelLoginAndLogout.sendMessage(eb.build()).queue();
 			
 			if(!Files.HorarioConfig.contains(BrasilDay())) {

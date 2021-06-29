@@ -11,7 +11,7 @@
   
    <properties>
         <java.version>1.8</java.version>
-        <java.home>C:\Program Files\Java\jdk-14.0.1\bin\javac</java.home>
+        <java.home>C:\Program Files\Java\jdk1.8.0_291\bin\javac</java.home>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dir>C:\Users\dmaxr\Documents\servidores\1.8.9-beta\plugins</dir>
         <maven.compiler.source>1.8</maven.compiler.source>
