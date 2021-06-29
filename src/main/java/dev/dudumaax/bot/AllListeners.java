@@ -2,14 +2,9 @@ package dev.dudumaax.bot;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,10 +21,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import dev.dudumaax.bot.ServerListPing17.StatusResponse;
@@ -105,7 +97,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			eb.setThumbnail("https://crafthead.net/avatar/" + playerName + ".png");
 			eb.addField("Nick", playerName, true);
 			eb.addField("Entrada", entrada, true);
-			eb.addField("SaÃ­da", saida, true);
+			eb.addField("Saída", saida, true);
 			eb.addField("Servidor", Main.getServerName(), true);
 
 			try {
@@ -113,7 +105,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			} catch (ParseException ex) {
 				ex.printStackTrace();
 			}
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved Â©", "https://crafthead.net/avatar/Dudumaax.png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelLoginAndLogout.sendMessage(eb.build()).queue();
 
 			if (!Files.HorarioConfig.contains(BrasilDay())) {
@@ -162,7 +154,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				Main.plugin.data.punish(playerName, punidoName, motivo);
 			}
 			EmbedBuilder eb = new EmbedBuilder();
-			eb.setTitle("PuniÃ§Ã£o");
+			eb.setTitle("Punição");
 			eb.addField("Autor", playerName, true);
 			eb.addField("Tipo", "Kick", true);
 			eb.addField("Punido", punidoName, true);
@@ -178,9 +170,9 @@ public class AllListeners extends ListenerAdapter implements Listener {
 					eb.setImage(c.returnImage(arg));
 				}
 			}
-			eb.setThumbnail("https://minotar.net/avatar/" + punidoName + ".png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + punidoName + ".png");
 			// https://prnt.sc/vittp8
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved Â©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
 		}
 
@@ -200,8 +192,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 			eb.setTitle("F " + playerName + " DEU EBANIP");
 			eb.addField("Quem fez: ", playerName, true);
 			eb.setColor(Color.RED);
-			eb.setThumbnail("https://minotar.net/avatar/" + punidoName + ".png");
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved Â©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + punidoName + ".png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
 			channelPunishments.sendMessage("@everyone").queue();
 		}
@@ -219,15 +211,15 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				motivo = motivo + " " + args[i];
 			}
 			EmbedBuilder eb = new EmbedBuilder();
-			eb.setTitle("PuniÃ§Ã£o");
+			eb.setTitle("Punição");
 			eb.addField("Autor", playerName, true);
 			eb.addField("Tipo", "Ban", true);
 			eb.addField("Punido", punidoName, true);
 			eb.addField("Motivo", motivo, true);
 			eb.setColor(Color.RED);
-			eb.setThumbnail("https://minotar.net/avatar/" + punidoName + ".png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + punidoName + ".png");
 			// eb.setImage(args[args.length - 1]);
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved Â©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar//Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
 		}
 
@@ -244,59 +236,16 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				motivo = motivo + " " + args[i];
 			}
 			EmbedBuilder eb = new EmbedBuilder();
-			eb.setTitle("PuniÃ§Ã£o");
+			eb.setTitle("Punição");
 			eb.addField("Autor", playerName, true);
 			eb.addField("Tipo", "Tempban", true);
 			eb.addField("Punido", punidoName, true);
 			eb.addField("Motivo", motivo, true);
 			eb.setColor(Color.ORANGE);
-			eb.setThumbnail("https://minotar.net/avatar/" + punidoName + ".png");
+			eb.setThumbnail("https://crafthead.net/avatar/" + punidoName + ".png");
 			// eb.setImage(args[args.length - 1]);
-			eb.setFooter("Developed by Dudumaax - All Rights Reserved Â©", "https://minotar.net/avatar/Dudumaax.png");
+			eb.setFooter("Developed by Dudumaax - All Rights Reserved ©", "https://crafthead.net/avatar/Dudumaax.png");
 			channelPunishments.sendMessage(eb.build()).queue();
-		} else if (e.getMessage().startsWith("/svinfo")) {
-
-			String[] message = e.getMessage().split("\\ ");
-
-			Bukkit.getServer().broadcastMessage("Seu servidor: " + message[1]);
-
-			String sURL = "https://api.mcsrvstat.us/2/" + message[1];
-			// String proxy = "";
-
-			URL url = null;
-			try {
-				url = new URL(sURL);
-			} catch (MalformedURLException e2) {
-				Bukkit.getServer().broadcastMessage("§cErro na url");
-				e2.printStackTrace();
-			}
-			URLConnection request = null;
-			try {
-				request = url.openConnection();
-			} catch (IOException e2) {
-				Bukkit.getServer().broadcastMessage("§cErro IO Exception");
-				e2.printStackTrace();
-			}
-			try {
-				request.connect();
-			} catch (IOException e1) {
-				Bukkit.getServer().broadcastMessage("§cErro na conexao.");
-				e1.printStackTrace();
-			}
-
-			// Convert to a JSON object to print data
-			JsonParser jp = new JsonParser(); // from gson
-			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); // Convert the input
-
-			JsonObject rootobj = root.getAsJsonObject();
-			String ip = rootobj.get("ip").getAsString();
-			String port = rootobj.get("port").getAsString();
-			String version = rootobj.get("version").getAsString();
-
-			Bukkit.getServer().broadcastMessage("§aIP: " + ip);
-			Bukkit.getServer().broadcastMessage("§aPort: " + port);
-			Bukkit.getServer().broadcastMessage("§aVersion: " + version);
-
 		}
 
 	}
