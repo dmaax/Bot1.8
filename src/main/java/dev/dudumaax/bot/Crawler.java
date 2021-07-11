@@ -28,10 +28,7 @@ public class Crawler {
 							}
 						}
 					}
-					//String src = el.absUrl("d");
-					//System.out.println("Image Found!");
-				    //System.out.println("src attribute is : "+src);
-				    //System.out.println(doc.select("div.no-click screenshot-image image").attr(src));
+
 				}
 			}
 		} catch (IOException e) {
