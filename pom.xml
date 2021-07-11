@@ -10,7 +10,6 @@
 	<name>BotDiscord</name>
 	<description>A simple spigot plugin integrated with a Discord Bot.</description>
 
-
 	<properties>
 		<java.version>1.8</java.version>
 		<java.home>C:\Program Files\Java\jdk1.8.0_291\bin\javac</java.home>
