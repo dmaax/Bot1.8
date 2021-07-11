@@ -8,7 +8,7 @@
 	<version>1.0</version>
 
 	<name>BotDiscord</name>
-	<description>Simple spigot plugin integrated with a Discord Bot</description>
+	<description>A simple spigot plugin integrated with a Discord Bot.</description>
 
 
 	<properties>
