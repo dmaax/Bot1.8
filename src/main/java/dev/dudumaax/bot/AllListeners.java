@@ -2,9 +2,6 @@ package dev.dudumaax.bot;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,7 +21,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-import dev.dudumaax.bot.ServerListPing17.StatusResponse;
 import dev.dudumaax.bot.api.MCServerStatusAPI;
 import dev.dudumaax.bot.sql.SQLGetter;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -272,60 +268,8 @@ public class AllListeners extends ListenerAdapter implements Listener {
 				return;
 			}
 
-			EmbedBuilder eb = new EmbedBuilder();
-			eb.setTitle("Status");
-			eb.setColor(Color.GREEN);
-
-			ServerListPing17 slp = new ServerListPing17();
-			InetSocketAddress server = new InetSocketAddress("playnetwork.com.br", 25565);
-			slp.setAddress(server);
-			slp.setTimeout(7000);
-
-			try {
-				StatusResponse response = slp.fetchData();
-				eb.addField("Online", "" + response.getPlayers().getOnline() + "/" + response.getPlayers().getMax(),
-						true);
-				eb.setThumbnail("https://mc-api.net/v3/server/favicon/playnetwork.com.br");
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-
-			String[] latencia = latency("playnetwork.com.br", 25565).split(" ");
-			int ms = Integer.parseInt(latencia[0]);
-			if (ms > 800) {
-				e.getChannel().sendMessage("Algo inesperado ocorreu.").queue();
-				;
-				return;
-			} else {
-
-				eb.addField("Ping", "" + ms, true);
-
-				e.getChannel().sendMessage(eb.build()).queue();
-				return;
-
-			}
 
 		}
-	}
-
-	private String latency(String host, Integer port) {
-		Socket s = new Socket();
-		SocketAddress a = new InetSocketAddress(host, port);
-		int timeoutMillis = 1000;
-		long start = System.currentTimeMillis();
-		try {
-			s.connect(a, timeoutMillis);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		long stop = System.currentTimeMillis();
-
-		try {
-			s.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		return "" + (stop - start) + " ms";
 	}
 
 	private String dateDifference(String date1, String date2, String pattern) throws ParseException {
@@ -371,6 +315,7 @@ public class AllListeners extends ListenerAdapter implements Listener {
 		return tempo;
 	}
 
+	@SuppressWarnings("unused")
 	private String dateSoma(String date1, String date2) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 		Date d1 = sdf.parse(date1);
