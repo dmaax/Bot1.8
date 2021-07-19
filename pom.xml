@@ -12,9 +12,9 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<java.home>C:\Program Files\Java\jdk1.8.0_291\bin\javac</java.home>
+		<java.home>/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/javac</java.home>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dir>C:\Users\dmaxr\Documents\servidores\1.8.9-beta\plugins</dir>
+		<dir>/home/eduardo/servers/1.8.9/plugins</dir>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
